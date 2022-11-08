@@ -1,6 +1,6 @@
 import numpy as np
 
-
+# Author: Max Althaus
 
 def L1_reg(W, r):
     """
@@ -22,9 +22,23 @@ def L1_reg(W, r):
     ###                  START OF YOUR CODE                  ###
     ############################################################
 
-    R = None
+    # regular. loss
+    # remove last line
+    R = W[:-1, :]
 
-    dW = None
+    # get the sum and multiply with r
+    R = np.sum(np.abs(R)) * r
+
+    # dW:
+    # set bias to 0 
+    dW = np.append(W[:-1, :], np.zeros(W.shape[1])).reshape(W.shape)
+
+    # get derivative
+    dW = np.where(dW < 0, -1, dW)
+    dW = np.where(dW > 0, 1, dW)
+
+    # apply r
+    dW = dW * r
 
     ############################################################
     ###                   END OF YOUR CODE                   ###
@@ -53,9 +67,19 @@ def L2_reg(W, r):
     ###                  START OF YOUR CODE                  ###
     ############################################################
 
-    R = None
+    # regular. loss
+    # remove last line
+    R = W[:-1, :]
 
-    dW = None
+    # get the sum and multiply with r
+    R = np.sum(np.square(np.abs(R))) * r
+
+    # dW:
+    # set bias to 0 
+    dW = np.append(W[:-1, :], np.zeros(W.shape[1])).reshape(W.shape)
+
+    # apply r
+    dW = dW 
 
     ############################################################
     ###                   END OF YOUR CODE                   ###

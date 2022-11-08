@@ -1,5 +1,6 @@
 import numpy as np
 
+#Author: Max Althaus
 
 
 def SVM_loss(S, y, d=1):
