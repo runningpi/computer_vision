@@ -77,15 +77,15 @@ def cross_entropy_loss(S, y):
     c = np.max(S, axis=1)[:, None]    
 
     # compute losses
-    L = - S[np.arange(len(S)), y] + np.log(np.sum(np.exp(S), axis=1))
+    L = - S[np.arange(len(S)), y] + c + np.log(np.sum(np.exp(S-c), axis=1))
 
     # compulte sum of losses
     L = 1 / S.shape[0] * np.sum(L)
 
     
     # compute derivatives
-    dS = np.sum(np.exp(S-c))
-    dS = np.exp(S-c) / dS 
+    dS = np.sum(np.exp(S-c), axis=1)
+    dS = np.exp(S-c) / dS[:, None]
 
     dS[np.arange(len(S)), y] -= 1
 
